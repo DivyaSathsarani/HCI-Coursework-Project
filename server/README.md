@@ -26,7 +26,7 @@ npm install
 ### 3. Start the server
 
 **Option A: Full stack (recommended — no CORS issues)**  
-Builds the frontend and serves everything from http://localhost:5000:
+Builds the frontend and serves everything from http://localhost:5001:
 ```bash
 npm run start:full
 ```
@@ -37,11 +37,17 @@ For development with `npm run dev` in the frontend folder (uses Vite proxy):
 npm start
 ```
 
-The server runs on http://localhost:5000. With `start:full`, open http://localhost:5000 in your browser.
+The server runs on http://localhost:5001. With `start:full`, open http://localhost:5001 in your browser.
 
 ### Test credentials (seeded on first run)
 - Email: `admin@example.com`
 - Password: `123456`
 
 ### Health check
-`GET http://localhost:5000/api/health` — returns database connection status.
+`GET http://localhost:5001/api/health` — returns database connection status.
+
+---
+
+## Additional Resources & Credits
+
+For a full list of external assets (images, 3D models, textures, icons, fonts, sound FX) and their credits, see the main project README: **[../README.md](../README.md)** (Section 7).

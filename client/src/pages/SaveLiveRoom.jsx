@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useRoom } from "../utils/RoomContext";
 import { useFurniture } from "../utils/FurnitureContext";
+import { useToast } from "../utils/ToastContext";
 import { saveLiveRoom } from "../utils/saveLiveRoom";
 import { AppNavbar } from "../components/layout/AppNavbar";
 import Footer from "../components/layout/Footer";
@@ -10,6 +11,7 @@ import { ArrowRight, Save } from "lucide-react";
 export default function SaveLiveRoom() {
   const roomContext = useRoom();
   const furnitureContext = useFurniture();
+  const { showToast } = useToast();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -32,7 +34,7 @@ export default function SaveLiveRoom() {
               </div>
             </div>
             <button
-              onClick={() => saveLiveRoom(furnitureContext, roomContext)}
+              onClick={() => saveLiveRoom(furnitureContext, roomContext, 5, showToast)}
               className="w-full flex items-center justify-center gap-2 py-3 px-6 bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold rounded-lg transition-colors"
             >
               <Save className="size-4" />

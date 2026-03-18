@@ -8,8 +8,10 @@ import { FurnitureProvider, useFurniture } from "../utils/FurnitureContext.jsx";
 import { useRoom } from "../utils/RoomContext";
 import { saveDesign, loadDesign } from "../utils/storage";
 import { apiFetch } from "../utils/api";
+import { useToast } from "../utils/ToastContext";
 
 function RoomDesignerContent({ furnitureLibrary }) {
+  const { showToast } = useToast();
   const [roomSize, setRoomSize] = useState(5);
   const [savedRooms, setSavedRooms] = useState([]);
   const [showSavedRoomsPanel, setShowSavedRoomsPanel] = useState(false);
@@ -37,7 +39,7 @@ function RoomDesignerContent({ furnitureLibrary }) {
 
   const handleSave = () => {
     saveDesign({ furniture, walls });
-    alert("Design saved locally!");
+    showToast("Design saved locally!", "success");
   };
 
   const handleLoad = () => {
@@ -46,13 +48,13 @@ function RoomDesignerContent({ furnitureLibrary }) {
       setFurniture(data.furniture || []);
       clearRoom();
       data?.walls?.forEach((w) => addWallPoint(w.x, w.y));
-      alert("Local design loaded!");
-    } else alert("No design found");
+      showToast("Local design loaded!", "success");
+    } else showToast("No design found", "warning");
   };
 
   const handleSaveRoom = async () => {
     if (!getLiveFurniture().length && !walls.length) {
-      alert("Add walls or furniture before saving.");
+      showToast("Add walls or furniture before saving.", "warning");
       return;
     }
     const roomData = {
@@ -68,11 +70,11 @@ function RoomDesignerContent({ furnitureLibrary }) {
         body: JSON.stringify(roomData),
       });
       await res.json();
-      alert("Room saved!");
+      showToast("Room saved!", "success");
       fetchSavedRooms();
     } catch (error) {
       console.error(error);
-      alert("Failed to save room.");
+      showToast("Failed to save room.", "error");
     }
   };
 
@@ -84,7 +86,7 @@ function RoomDesignerContent({ furnitureLibrary }) {
       setShowSavedRoomsPanel(true);
     } catch (error) {
       console.error(error);
-      alert("Failed to load rooms.");
+      showToast("Failed to load rooms.", "error");
     }
   };
 
@@ -94,7 +96,7 @@ function RoomDesignerContent({ furnitureLibrary }) {
     clearRoom();
     room?.walls?.forEach((w) => addWallPoint(w.x, w.y));
     setShowSavedRoomsPanel(false);
-    alert(`Loaded room: ${room.name}`);
+    showToast(`Loaded room: ${room.name}`, "success");
   };
 
   return (

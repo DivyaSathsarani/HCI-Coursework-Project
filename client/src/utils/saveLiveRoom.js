@@ -1,9 +1,9 @@
-export async function saveLiveRoom(furnitureContext, roomContext, roomSize = 5) {
+export async function saveLiveRoom(furnitureContext, roomContext, roomSize = 5, showToast) {
   const furniture = furnitureContext.getLiveFurniture();
   const walls = roomContext?.getLiveWalls?.() ?? roomContext?.walls ?? [];
 
   if (!walls || !furniture) {
-    alert("Nothing to save!");
+    if (showToast) showToast("Nothing to save!", "warning");
     return;
   }
 
@@ -23,9 +23,9 @@ export async function saveLiveRoom(furnitureContext, roomContext, roomSize = 5) 
 
     const data = await res.json();
     console.log("Saved room:", data);
-    alert(`Room saved successfully: ${data.name}`);
+    if (showToast) showToast(`Room saved successfully: ${data.name}`, "success");
   } catch (err) {
     console.error("Save error:", err);
-    alert("Failed to save room to database.");
+    if (showToast) showToast("Failed to save room to database.", "error");
   }
 }

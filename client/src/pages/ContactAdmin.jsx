@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AppNavbar } from "../components/layout/AppNavbar";
+import { useToast } from "../utils/ToastContext";
 import Footer from "../components/layout/Footer";
 import { Trash2, Mail, ChevronDown, ChevronUp, Pencil, X } from "lucide-react";
 import { apiFetch } from "../utils/api";
 
 export default function ContactAdmin() {
+  const { showToast } = useToast();
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -42,7 +44,7 @@ export default function ContactAdmin() {
       if (expandedId === id) setExpandedId(null);
       if (editingMsg?._id === id) setEditingMsg(null);
     } catch (err) {
-      alert(err.message);
+      showToast(err.message, "error");
     }
   };
 
@@ -75,7 +77,7 @@ export default function ContactAdmin() {
       }
       setEditingMsg(null);
     } catch (err) {
-      alert(err.message);
+      showToast(err.message, "error");
     } finally {
       setEditLoading(false);
     }

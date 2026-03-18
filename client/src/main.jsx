@@ -7,10 +7,12 @@ import { theme } from "./theme";
 import { AuthProvider } from "./utils/AuthContext";
 import { RoomProvider } from "./utils/RoomContext";
 import { FurnitureProvider } from "./utils/FurnitureContext";
+import { ToastProvider } from "./utils/ToastContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
+      <ToastProvider>
       <AuthProvider>
         <RoomProvider>
           <FurnitureProvider>
@@ -18,6 +20,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           </FurnitureProvider>
         </RoomProvider>
       </AuthProvider>
+      </ToastProvider>
     </ThemeProvider>
   </React.StrictMode>
 );

@@ -1,7 +1,7 @@
 // saveRoomToDB.js
 import { apiFetch } from "./api";
 
-export async function saveRoomFromLocalStorage() {
+export async function saveRoomFromLocalStorage(showToast) {
   // Try to get from localStorage (or set dummy data if empty)
   let saved = localStorage.getItem("room_design");
   if (!saved) {
@@ -48,9 +48,9 @@ export async function saveRoomFromLocalStorage() {
     });
     const resp = await res.json();
     console.log("Saved to server:", resp);
-    alert("Room saved to database!");
+    if (showToast) showToast("Room saved to database!", "success");
   } catch (err) {
     console.error("Error saving room:", err);
-    alert("Failed to save room to database.");
+    if (showToast) showToast("Failed to save room to database.", "error");
   }
 }

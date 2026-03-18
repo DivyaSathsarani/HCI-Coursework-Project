@@ -1,6 +1,7 @@
 // src/pages/ForgotPassword.jsx
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useToast } from "../utils/ToastContext";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import Footer from "../components/layout/Footer";
 import { ArrowRight } from "lucide-react";
@@ -12,6 +13,7 @@ export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const navigate = useNavigate();
+  const { showToast } = useToast();
 
   const handleReset = (e) => {
     e.preventDefault();
@@ -19,12 +21,12 @@ export default function ForgotPassword() {
       localStorage.getItem("userEmail") || "admin@example.com";
 
     if (email !== savedEmail) {
-      alert("Email not found");
+      showToast("Email not found", "error");
       return;
     }
 
     localStorage.setItem("userPassword", newPassword);
-    alert("Password reset successful!");
+    showToast("Password reset successful!", "success");
     navigate("/login");
   };
 

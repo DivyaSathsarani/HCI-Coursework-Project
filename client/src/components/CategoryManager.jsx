@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { apiFetch } from "../utils/api";
+import { useToast } from "../utils/ToastContext";
 
 export default function CategoryManager() {
+  const { showToast } = useToast();
   const [category, setCategory] = useState("");
   const [designName, setDesignName] = useState("");
   const [size, setSize] = useState("1,1,1");
@@ -28,7 +30,7 @@ export default function CategoryManager() {
   }, []);
 
   const handleUpload = async () => {
-    if (!category || !designName || !modelFile) return alert("Please fill all required fields");
+    if (!category || !designName || !modelFile) return showToast("Please fill all required fields", "warning");
 
     const formData = new FormData();
     formData.append("category", category);
@@ -41,13 +43,13 @@ export default function CategoryManager() {
     try {
       const res = await apiFetch("/api/furniture/add", { method: "POST", body: formData });
       if (res.ok) {
-        alert("Furniture uploaded successfully");
+        showToast("Furniture uploaded successfully", "success");
         resetForm();
         loadFurniture();
-      } else alert("Upload failed");
+      } else showToast("Upload failed", "error");
     } catch (err) {
       console.error(err);
-      alert("Upload error");
+      showToast("Upload error", "error");
     }
   };
 
@@ -77,13 +79,13 @@ export default function CategoryManager() {
     try {
       const res = await fetch(`/api/furniture/update/${editingId}`, { method: "PUT", body: formData });
       if (res.ok) {
-        alert("Furniture updated");
+        showToast("Furniture updated", "success");
         resetForm();
         loadFurniture();
-      } else alert("Update failed");
+      } else showToast("Update failed", "error");
     } catch (err) {
       console.error(err);
-      alert("Update error");
+      showToast("Update error", "error");
     }
   };
 

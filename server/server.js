@@ -120,7 +120,7 @@ app.use("/api", (req, res) => {
 /* ===============================
    SERVE FRONTEND (same origin = no CORS)
 ================================ */
-const frontendDist = path.join(__dirname, "../HCI-Coursework-Project/dist");
+const frontendDist = path.join(__dirname, "../client/dist");
 if (fs.existsSync(frontendDist)) {
   app.use(express.static(frontendDist));
   app.get("/{*splat}", (req, res, next) => {
