@@ -1,0 +1,14 @@
+@import "tailwindcss" source(none);
+@source "../**/*.{js,jsx,ts,tsx}";
+
+@import "tw-animate-css";
+
+/* Hide scrollbar globally, keep scroll functionality */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
+

@@ -1,7 +1,23 @@
+# dependencies
 node_modules/
-HCI-Coursework-Project/node_modules/
-server/node_modules/
-server/uploads/
+
+# build files
 dist/
-uploads/
+build/
+
+# env files
 .env
+
+# uploads
+uploads/
+server/uploads/
+
+# system files
+.DS_Store
+
+# vite cache
+.vite/
+
+# logs
+logs
+*.log
